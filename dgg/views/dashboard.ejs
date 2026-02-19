@@ -1,0 +1,62 @@
+<%- include('layout', { body: `
+<div class="timer" id="timer"></div>
+
+<div style="text-align:center;margin-bottom:15px;">
+  <a href="/game/leaderboard" style="color:#ff2e63;">🏆 Voir le classement</a>
+</div>
+
+<h2>Mes missions</h2>
+
+${user.missions.map(m => `
+<div class="card">
+  <strong>Difficulté : ${m.difficulty.toUpperCase()}</strong>
+  
+  ${!m.revealed ? `
+    <form method="POST" action="/game/reveal/${m._id}">
+      <button>Révéler la mission</button>
+    </form>
+  ` : `
+    <p>${m.missionId.description}</p>
+    
+    ${!m.completed && !m.failed ? `
+      <form method="POST" action="/game/complete/${m._id}">
+        <button>Valider la mission</button>
+      </form>
+
+      <form method="POST" action="/game/fail/${m._id}">
+        <button>Échec de la mission</button>
+      </form>
+    ` : `
+      ${m.completed ? `
+        <p style="color:lightgreen;">✔ Mission validée</p>
+      ` : `
+        <p style="color:red;">❌ Mission ratée</p>
+      `}
+    `}
+  `}
+</div>
+`).join("")}
+` }) %>
+
+<script>
+const endTime = new Date("<%= game ? game.endTime : new Date() %>").getTime();
+
+function updateTimer() {
+  const now = new Date().getTime();
+  const distance = endTime - now;
+
+  if (distance <= 0) {
+    document.getElementById("timer").innerHTML = "⛔ Partie terminée";
+    return;
+  }
+
+  const minutes = Math.floor((distance % (1000*60*60))/(1000*60));
+  const seconds = Math.floor((distance % (1000*60))/1000);
+
+  document.getElementById("timer").innerHTML =
+    "⏳ Temps restant : " + minutes + "m " + seconds + "s";
+}
+
+setInterval(updateTimer, 1000);
+updateTimer();
+</script>

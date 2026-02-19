@@ -1,0 +1,13 @@
+<%- include('layout', { body: `
+<div class="card">
+  <h2>Inscription</h2>
+  <form method="POST" action="/register">
+    <input type="text" name="username" placeholder="Pseudo" required />
+    <input type="password" name="password" placeholder="Mot de passe" required />
+    <button type="submit">Créer le compte</button>
+  </form>
+  <p style="text-align:center;margin-top:10px;">
+    <a href="/login" style="color:#ff2e63;">Déjà inscrit ?</a>
+  </p>
+</div>
+` }) %>

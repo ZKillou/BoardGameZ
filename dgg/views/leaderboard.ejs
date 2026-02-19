@@ -1,0 +1,18 @@
+<%- include('layout', { body: `
+<h2>🏆 Classement</h2>
+
+${ranking.length === 0 ? `
+  <p>Aucun score pour le moment</p>
+` : `
+  ${ranking.map((r, index) => `
+    <div class="card">
+      <strong>#${index + 1} - ${r.username}</strong>
+      <p>Score : ${r.totalTime} pts</p>
+    </div>
+  `).join("")}
+`}
+
+<div style="text-align:center;margin-top:20px;">
+  <a href="/game/dashboard" style="color:#ff2e63;">⬅ Retour</a>
+</div>
+` }) %>

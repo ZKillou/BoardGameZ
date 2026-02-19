@@ -1,0 +1,41 @@
+<%- include('layout', { body: `
+<h2>👑 Admin Panel</h2>
+
+<div class="card">
+  <form method="POST" action="/admin/start">
+    <button>Démarrer une partie (1h)</button>
+  </form>
+</div>
+
+<h3>Gestion des joueurs</h3>
+
+${users.map(user => `
+<div class="card">
+  <strong>${user.username}</strong>
+
+  ${user.missions.map(m => `
+    ${m.completed ? `
+      <div style="margin-top:10px;">
+        <span style="color:lightgreen;">
+          ✔ ${m.difficulty.toUpperCase()}
+        </span>
+        <form method="POST" action="/admin/invalidate/${user._id}/${m._id}">
+          <button style="background:#aa0000;">Invalider</button>
+        </form>
+      </div>
+    ` : ``}
+
+    ${m.failed ? `
+      <div style="margin-top:10px;">
+        <span style="color:red;">
+          ❌ ${m.difficulty.toUpperCase()}
+        </span>
+        <form method="POST" action="/admin/reset/${user._id}/${m._id}">
+          <button style="background:#aa0000;">Réinitialiser</button>
+        </form>
+      </div>
+    ` : ``}
+  `).join("")}
+</div>
+`).join("")}
+` }) %>

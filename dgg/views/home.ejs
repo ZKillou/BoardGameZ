@@ -1,0 +1,66 @@
+<%- include('layout', { body: `
+<div class="card">
+  <h2>🎯 Bienvenue à Don't Get Got</h2>
+  <p>
+    Une soirée. Un bar. Des missions secrètes.
+    <br><br>
+    Ton objectif ? Les accomplir sans te faire démasquer.
+  </p>
+</div>
+
+<div class="card">
+  <h3>📜 Règles du jeu</h3>
+
+  <p><strong>1️⃣ Chaque joueur reçoit 3 missions :</strong></p>
+  <ul>
+    <li>🟢 1 mission facile</li>
+    <li>🟡 1 mission moyenne</li>
+    <li>🔴 1 mission difficile</li>
+  </ul>
+
+  <p><strong>2️⃣ Les missions sont secrètes.</strong><br>
+  Tu dois les accomplir discrètement pendant la soirée.</p>
+
+  <p><strong>3️⃣ Durée de la partie :</strong><br>
+  ⏳ 1 heure à partir du lancement par l'admin.</p>
+
+  <p><strong>4️⃣ Validation :</strong><br>
+  Quand tu penses avoir réussi, valide ta mission dans l’application.</p>
+
+  <p><strong>5️⃣ Attention :</strong><br>
+  Si quelqu’un devine ta mission ou si tu te fais griller…
+  <br>
+  💀 Elle est révelée et ne peut plus être validée.</p>
+
+  <p><strong>6️⃣ Classement :</strong><br>
+  🏆 Les joueurs sont classés selon la rapidité à valider leurs missions.</p>
+</div>
+
+<div class="card">
+  <h3>📱 Comment jouer ?</h3>
+
+  <p>
+    ✔ Connecte-toi ou crée un compte<br>
+    ✔ Attends le lancement de la partie<br>
+    ✔ Révèle tes missions<br>
+    ✔ Sois subtil<br>
+    ✔ Ne te fais pas avoir
+  </p>
+
+  <p>
+    <i>ℹ️ Toutes les données seront supprimées après la soirée.</i>
+  </p>
+</div>
+
+<div style="text-align:center;margin-top:20px;">
+  <a href="/login">
+    <button>Se connecter</button>
+  </a>
+
+  <a href="/register">
+    <button style="background:#444;margin-top:10px;">
+      Créer un compte
+    </button>
+  </a>
+</div>
+` }) %>

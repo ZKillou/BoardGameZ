@@ -20,7 +20,7 @@ app.use(session({
     store: MongoStore.default.create({
         mongoUrl: process.env.MONGO_URI
     }),
-    cookie: { maxAge: 1000 * 60 * 60 } // 1h
+    cookie: { maxAge: 1000 * 60 * 60 * 6 } // 6h
 }))
 
 app.use("/", require("./routes/auth"))

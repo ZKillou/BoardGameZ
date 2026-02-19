@@ -14,27 +14,33 @@ ${users.map(user => `
   <strong>${user.username}</strong>
 
   ${user.missions.map(m => `
-    ${m.completed ? `
-      <div style="margin-top:10px;">
-        <span style="color:lightgreen;">
-          ✔ ${m.difficulty.toUpperCase()}
-        </span>
+    <div style="margin-top:10px;">
+      <strong>${m.difficulty.toUpperCase()}</strong>
+
+      ${m.completed ? `
+        <span style="color:lightgreen;">✔ Validée</span>
+      ` : (m.failed ? `
+        <span style="color:red;">❌ Ratée</span>
+      ` : `
+        <span style="color:orange;">En cours</span>
+      `)}
+
+      <form method="POST" action="/admin/reroll/${user._id}/${m._id}">
+        <button style="background:#444;">🎲 Reroll</button>
+      </form>
+
+      ${m.completed ? `
         <form method="POST" action="/admin/invalidate/${user._id}/${m._id}">
           <button style="background:#aa0000;">Invalider</button>
         </form>
-      </div>
-    ` : ``}
+      ` : ``}
 
-    ${m.failed ? `
-      <div style="margin-top:10px;">
-        <span style="color:red;">
-          ❌ ${m.difficulty.toUpperCase()}
-        </span>
+      ${m.failed ? `
         <form method="POST" action="/admin/reset/${user._id}/${m._id}">
           <button style="background:#aa0000;">Réinitialiser</button>
         </form>
-      </div>
-    ` : ``}
+      ` : ``}
+    </div>
   `).join("")}
 </div>
 `).join("")}

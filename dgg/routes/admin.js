@@ -1,6 +1,7 @@
 const express = require("express");
 const Game = require("../models/Game");
 const User = require("../models/User");
+const Mission = require("../models/Mission");
 const assignMissionsToUser = require("../utils/assignMissions");
 
 const router = express.Router();
@@ -29,6 +30,39 @@ router.post("/start", adminOnly, async (req, res) => {
     await user.save();
     await assignMissionsToUser(user._id);
   }
+
+  res.redirect("/admin");
+});
+
+router.post("/reroll/:userId/:missionSubId", adminOnly, async (req, res) => {
+  const { userId, missionSubId } = req.params;
+
+  const user = await User.findById(userId);
+  if (!user) return res.redirect("/admin");
+
+  const missionSub = user.missions.id(missionSubId);
+  if (!missionSub) return res.redirect("/admin");
+
+  const difficulty = missionSub.difficulty;
+
+  const missions = await Mission.find({ difficulty });
+
+  if (!missions.length) return res.redirect("/admin");
+
+  const filtered = missions.filter(m => m._id.toString() !== missionSub.missionId.toString());
+
+  if (!filtered.length) return res.redirect("/admin");
+
+  const newMission = filtered[Math.floor(Math.random() * filtered.length)];
+
+  // Remplacement
+  missionSub.missionId = newMission._id;
+  missionSub.revealed = false;
+  missionSub.completed = false;
+  missionSub.completedAt = null;
+  missionSub.failed = false;
+
+  await user.save();
 
   res.redirect("/admin");
 });

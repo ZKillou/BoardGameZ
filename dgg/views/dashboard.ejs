@@ -24,7 +24,7 @@ ${user.missions.map(m => `
       </form>
 
       <form method="POST" action="/game/fail/${m._id}">
-        <button>Échec de la mission</button>
+        <button style="background:#444;">Échec de la mission</button>
       </form>
     ` : `
       ${m.completed ? `
